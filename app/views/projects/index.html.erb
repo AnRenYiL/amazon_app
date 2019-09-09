@@ -1,0 +1,11 @@
+<h3>All Project</h3>
+
+<% @projects.each do |project| %>
+<div class="card bg-light mb-3" >
+  <div class="card-header"><%= link_to project.title, project_path(project) %></div>
+  <div class="card-body">
+    
+    <p class="card-text"><%= project.description %></p>
+  </div>
+</div>
+<% end %>

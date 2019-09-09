@@ -1,0 +1,26 @@
+<% if @project.errors.any? %>
+<ul>
+    <% @project.errors.full_messages.each do |msg|%>
+    <li><%= msg%></li>
+    <% end %>
+</ul>
+<% end%>
+<%= form_for @project do |f|%>
+<div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title,class:'form-control'%>
+</div>
+<div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description,class:'form-control'%>
+</div>
+<div class="form-group">
+    <%= f.label :auther %>
+    <%= f.text_field :auther,class:'form-control'%>
+</div>
+<div class="form-group">
+    <%= f.label :deadline %>
+    <%= f.text_field :deadline,class:'form-control'%>
+</div>
+<%= f.submit :submit, class:"btn btn-primary btn-lg btn-block" %>
+<% end%>

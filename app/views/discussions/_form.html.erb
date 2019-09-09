@@ -1,0 +1,32 @@
+<h2>Discussion about "<%= @project.title %>"</h2>
+<p>description: <%= @project.description %></p>
+<hr>
+<%= form_with(model: [@project, @discussion], local: true) do |f| %>
+<% if @discussion.errors.any? %>
+<ul>
+    <% @discussion.errors.full_messages.each do |msg|%>
+    <li><%= msg %></li>
+    <% end %>
+</ul>
+<% end %>
+
+<div class="form-group">
+    <label>title</label>
+    <%= f.text_field(
+  :title,
+  cols: 50,
+  rows: 3,
+  class: "form-control"
+  ) %>
+</div>
+<div class="form-group">
+    <label>body</label>
+    <%= f.text_area(
+  :body,
+  cols: 50,
+  rows: 3,
+  class: "form-control"
+  ) %>
+</div>
+<%= f.submit "Submit", class:"btn btn-primary" %>
+<% end %>

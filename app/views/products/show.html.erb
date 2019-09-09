@@ -1,0 +1,68 @@
+<h3>Show Page</h3>
+
+<%= form_with(model: [@product, @review], local: true) do |f| %>
+<% if @review.errors.any? %>
+  <ul>
+    <% @review.errors.full_messages.each do |msg|%>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title"><%= @product.title%></h5>
+    <p class="card-text"><%= @product.description%></p>
+    <h5>$<%= @product.price%></h5>
+    <%= link_to "Edit", edit_product_path(@product), class:"btn btn-warning "%>
+    <%= link_to "Delete", product_path(@product), class:"btn btn-danger ", method: :delete, data:{confirm: "Are you sure?"}%>
+  </div>
+  <div class="card-footer text-muted">
+    <%= @product.created_at%>
+  </div>
+</div>
+<div class="form-group">
+  <label>body</label>
+  <%= f.text_area(
+  :body,
+  cols: 50,
+  rows: 5,
+  placeholder: "What are your review?",
+  class: "form-control"
+  ) %>
+</div>
+<div class="form-group">
+    <%= f.label :rating %>
+    <%= f.text_field :rating,class:'form-control'%>
+</div>
+<%= f.submit "Review", class:"btn btn-primary" %>
+<% end %>
+
+<hr />
+
+<ul class="answer-list">
+<% if @reviews!= nil%>
+  <% @reviews.each do |review| %>
+    <li>
+      <p>Rating: <%= review.rating %> <br />
+        Review: <%= review.body %> <br />
+        <small>
+          <%= link_to(
+            "Delete",
+            product_review_path(@product, review),
+            method: :delete,
+            data: {
+              confirm: "Are you sure?"
+            }, 
+            class: "btn btn-danger"
+          ) %>
+        </small>
+        |
+        <small>
+          Created <%= time_ago_in_words(review.created_at) %> ago
+        </small>
+      </p>
+    </li>
+  <% end %>
+<% end %>
+</ul>
+
