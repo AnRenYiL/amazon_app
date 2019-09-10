@@ -1,6 +1,7 @@
 class DiscussionsController < ApplicationController
     before_action :find_project, only: [:new, :create, :show, :edit, :update, :destroy]
     before_action :find_discussion, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!
     def new
         @discussion = Discussion.new
         render :new

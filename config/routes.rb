@@ -27,6 +27,10 @@ Rails.application.routes.draw do
       resources :comments
     end
   end
+  resources :users, only: [:new, :create]
+  resources :sessions, only: [:new, :create] do
+    delete :destroy, on: :collection
+  end
   # resources :entry
   # post 'entry/contact_us'
   # root to:'enterpage#about'

@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
     before_action :find_project
     before_action :find_discussion
     before_action :finde_comment, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!
     def create
         @comment = Comment.new comment_params
         @comment.discussion = @discussion

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_215147) do
+ActiveRecord::Schema.define(version: 2019_09_10_021422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2019_09_06_215147) do
     t.float "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -47,6 +49,8 @@ ActiveRecord::Schema.define(version: 2019_09_06_215147) do
     t.datetime "deadline"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -67,8 +71,20 @@ ActiveRecord::Schema.define(version: 2019_09_06_215147) do
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
   add_foreign_key "comments", "discussions"
   add_foreign_key "discussions", "projects"
+  add_foreign_key "products", "users"
+  add_foreign_key "projects", "users"
   add_foreign_key "reviews", "products"
   add_foreign_key "tasks", "projects"
 end
