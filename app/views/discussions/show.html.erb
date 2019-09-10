@@ -1,0 +1,59 @@
+<h3>Show Page</h3>
+<div class="card text-center">
+    <div class="card-body">
+        <h5 class="card-title"><%= @project.title%> | Author: <%= @project.auther%></h5>
+        <p class="card-text"><%= @project.description%></p>
+        <h6 class="text-info">Discussion Title: <%= @discussion.title%></h6>
+        <p>Discussion Content: <%= @discussion.body%></p>
+    </div>
+    <div class="card-footer text-muted">
+        deadline: <%= @project.deadline%>
+    </div>
+</div>
+<%= form_with(model: [@project, @discussion,@comment], local: true) do |f| %>
+<% if @comment.errors.any? %>
+<ul>
+    <% @comment.errors.full_messages.each do |msg|%>
+    <li><%= msg %></li>
+    <% end %>
+</ul>
+<% end %>
+<div class="form-group my-3">
+    <label>Comment:</label>
+    <%= f.text_field(
+  :body,
+  cols: 50,
+  rows: 3,
+  class: "form-control"
+  ) %>
+</div>
+<%= f.submit "Submit", class:"btn btn-primary" %>
+<% end %>
+<h4 class="mt-3">Comments:</h4>
+<ul>
+    <% if @comments!= nil%>
+    <% @comments.each do |comment| %>
+    <li>
+        <p><%= comment.body %> <br />
+            <small>
+                <%= link_to(
+            "Delete",
+            project_discussion_comment_path(@project, @discussion, comment),
+            method: :delete,
+            data: {
+              confirm: "Are you sure?"
+            }, 
+            class: "btn btn-outline-danger"
+          ) %>
+            </small>
+            |<small>
+                <%= link_to "Edit",  project_discussion_comment_path(@project, @discussion, comment), class:"btn btn-outline-warning "%>
+            </small>|
+            <small>
+                Created <%= time_ago_in_words(comment.created_at) %> ago
+            </small>
+        </p>
+    </li>
+    <% end %>
+    <% end %>
+</ul>

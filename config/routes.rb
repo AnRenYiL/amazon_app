@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   end
   resources :projects do
     resources :tasks, only: [:create, :destroy]
-    resources :discussions
+    resources :discussions do
+      resources :comments
+    end
   end
   # resources :entry
   # post 'entry/contact_us'

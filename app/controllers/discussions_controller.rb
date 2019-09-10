@@ -1,10 +1,10 @@
 class DiscussionsController < ApplicationController
     before_action :find_project, only: [:new, :create, :show, :edit, :update, :destroy]
-    before_action :find_discussion, only: [:edit, :update, :destory]
+    before_action :find_discussion, only: [:show, :edit, :update, :destroy]
     def new
         @discussion = Discussion.new
         render :new
-      end
+    end
     def create
         @discussion = Discussion.new discussion_params
         @discussion.project = @project
@@ -18,7 +18,15 @@ class DiscussionsController < ApplicationController
     def edit
     
     end
-    
+    def show
+      if params[:id]&&params[:discussion_id]
+        @comment = Comment.find(params[:id])
+      else
+        @comment = Comment.new
+      end
+      @comments = @discussion.comments.order(created_at: :desc)
+
+    end
     def update
       if @discussion.update discussion_params
         redirect_to project_path(@project), notice: 'Discussion Updated'

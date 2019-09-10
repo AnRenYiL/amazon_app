@@ -113,7 +113,7 @@
     <% @discussions.each do |discussion| %>
     <div class="card my-3" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title"><%= discussion.title%></h5>
+            <h5 class="card-title"><%= link_to discussion.title, project_discussion_path(@project,discussion) %></h5>
             <p class="card-text"><%= discussion.body%></p>
             <%= link_to "Edit",  edit_project_discussion_path(@project, discussion), class:"btn btn-outline-warning "%>
             <%= link_to "Delete", project_discussion_path(@project, discussion), class:"btn btn-outline-danger ", method: :delete, data:{confirm: "Are you sure?"}%>
