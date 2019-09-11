@@ -5,21 +5,58 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
 Product.destroy_all
+Project.destroy_all
+# Review.destroy_all
+# Task.destroy_all
+# Comment.destroy_all
+# Discussion.destroy_all
 
-NUM_PRODUCTS = 1000
+NUM_PRODUCTS = 100
+NUM_USERS = 10
+PASSWORD = "supersecret"
+
+super_user = User.create(
+  first_name: "Mao",
+  last_name: "Li",
+  email: "anrenyil@gmail.com",
+  password: '123',
+  is_admin: true
+)
+
+NUM_USERS.times do
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  User.create(
+    first_name: first_name,
+    last_name: last_name,
+    email: "#{first_name.downcase}.#{last_name.downcase}@example.com",
+    password: PASSWORD
+  )
+end
+users = User.all
+
 
 NUM_PRODUCTS.times do
   created_at = Faker::Date.backward(days: 365 * 5)
-  Product.create(
+  p = Product.create(
     title: Faker::Cannabis.strain,
     description: Faker::Cannabis.health_benefit,
     price: rand(100_000),
     created_at: created_at,
-    updated_at: created_at
+    updated_at: created_at,
+    user: users.sample
   )
+  if p.valid?
+    p.reviews = rand(0..10).times.map do
+      Review.new(body: Faker::GreekPhilosophers.quote, user: users.sample,rating: rand(1..5))
+    end
+  end
 end
 
 products = Product.all
-
+reviews = Review.all
 puts products.count
+puts reviews.count
+puts users.count
