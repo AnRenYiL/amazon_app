@@ -1,6 +1,5 @@
 class Product < ApplicationRecord
     has_many :reviews, dependent: :destroy
-    has_many :discussions, dependent: :destroy
     belongs_to :user
     validates(:title, presence: true, uniqueness:  { case_sensitive: false })
     validates(

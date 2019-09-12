@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :authorize!, only: [:edit, :update, :destroy]
   def new
     @product = Product.new
     render :new
@@ -54,5 +55,9 @@ class ProductsController < ApplicationController
   def find_product
     # this will get the current value inside of the db
     @product = Product.find(params[:id])
+  end
+
+  def authorize!
+    redirect_to root_path, alert: 'Not Authorized' unless can?(:crud, @product)
   end
 end

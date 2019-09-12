@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create] do
     delete :destroy, on: :collection
   end
+  get '/admin/panel', {to: "admin#panel"}
   # resources :entry
   # post 'entry/contact_us'
   # root to:'enterpage#about'
