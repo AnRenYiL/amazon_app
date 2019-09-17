@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   # patch '/products/:id', {to: "products#update"}
   # delete '/products/:id', {to: "products#destroy"}
   resources :products do
-    resources :reviews, only: [:create, :destroy]
+    resources :reviews
   end
   resources :projects do
     resources :tasks, only: [:create, :destroy]
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     delete :destroy, on: :collection
   end
   get '/admin/panel', {to: "admin#panel"}
+  resources :news_articles
   # resources :entry
   # post 'entry/contact_us'
   # root to:'enterpage#about'

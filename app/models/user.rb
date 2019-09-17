@@ -6,6 +6,7 @@ class User < ApplicationRecord
     has_many :project, dependent: :nullify
     has_many :review, dependent: :nullify
     has_many :task, dependent: :nullify
+    has_many :newsarticle, dependent: :nullify
     validates :email, presence: true, uniqueness: true,
             format:  /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
     def full_name

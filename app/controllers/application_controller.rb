@@ -15,7 +15,11 @@ class ApplicationController < ActionController::Base
     helper_method :user_signed_in?
 
     def authenticate_user!
-      redirect_to new_session_path, notice: "Please sign in" unless user_signed_in?
+      # redirect_to new_session_path, notice: "Please sign in" unless user_signed_in?
+      unless user_signed_in?
+        flash[:danger] = "You betta sign yo self in foo!"
+        redirect_to new_session_path
+    end
     end
     
 

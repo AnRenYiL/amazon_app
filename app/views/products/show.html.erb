@@ -14,11 +14,11 @@
 </div>
 <%= form_with(model: [@product, @review], local: true) do |f| %>
 <% if @review.errors.any? %>
-  <ul>
-    <% @review.errors.full_messages.each do |msg|%>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
+<ul>
+  <% @review.errors.full_messages.each do |msg|%>
+  <li><%= msg %></li>
+  <% end %>
+</ul>
 <% end %>
 
 <div class="form-group">
@@ -32,8 +32,8 @@
   ) %>
 </div>
 <div class="form-group">
-    <%= f.label :rating %>
-    <%= f.text_field :rating,class:'form-control'%>
+  <%= f.label :rating %>
+  <%= f.text_field :rating,class:'form-control'%>
 </div>
 <%= f.submit "Review", class:"btn btn-primary" %>
 <% end %>
@@ -41,14 +41,18 @@
 <hr />
 
 <ul class="answer-list">
-<% if @reviews!= nil%>
+  <% if @reviews!= nil%>
   <% @reviews.each do |review| %>
-    <li>
-      <p>Rating: <%= review.rating %> <br />
-        Review: <%= review.body %> <br />
-        Created by: <%= review.user&.full_name%><br />
-        <small>
-          <%= link_to(
+  <li>
+    <p>Rating: <%= review.rating %> <br />
+      Review: <%= review.body %> <br />
+      Created by: <%= review.user&.full_name%><br />
+      <small>
+        <%= link_to "Edit",  product_review_path(@product, review), class:"btn btn-outline-warning "%>
+      </small>|
+      |
+      <small>
+        <%= link_to(
             "Delete",
             product_review_path(@product, review),
             method: :delete,
@@ -57,14 +61,13 @@
             }, 
             class: "btn btn-danger"
           ) %>
-        </small>
-        |
-        <small>
-          Created <%= time_ago_in_words(review.created_at) %> ago
-        </small>
-      </p>
-    </li>
+      </small>
+      |
+      <small>
+        Created <%= time_ago_in_words(review.created_at) %> ago
+      </small>
+    </p>
+  </li>
   <% end %>
-<% end %>
+  <% end %>
 </ul>
-

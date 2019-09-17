@@ -18,9 +18,11 @@ class ProductsController < ApplicationController
   end
 
   def show
-    # @product = Product.find(params[:id])
-    @review  = Review.new
-    
+    if params[:id]&&params[:product_id]
+      @review = Review.find(params[:id])
+    else
+      @review = Review.new
+    end
     @reviews = @product.reviews.order(created_at: :desc)
   end
 

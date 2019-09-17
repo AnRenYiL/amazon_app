@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_11_172410) do
+ActiveRecord::Schema.define(version: 2019_09_16_184702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 2019_09_11_172410) do
     t.bigint "user_id"
     t.index ["project_id"], name: "index_discussions_on_project_id"
     t.index ["user_id"], name: "index_discussions_on_user_id"
+  end
+
+  create_table "newsarticles", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "published_at"
+    t.integer "view_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_newsarticles_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -64,6 +75,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_172410) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.boolean "is_hidden"
     t.index ["product_id"], name: "index_reviews_on_product_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -94,6 +106,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_172410) do
   add_foreign_key "comments", "users"
   add_foreign_key "discussions", "projects"
   add_foreign_key "discussions", "users"
+  add_foreign_key "newsarticles", "users"
   add_foreign_key "products", "users"
   add_foreign_key "projects", "users"
   add_foreign_key "reviews", "products"
