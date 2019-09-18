@@ -139,7 +139,7 @@ RSpec.describe NewsArticlesController, type: :controller do
           get :index
           news_article_1 = FactoryBot.create(:newsarticle)
           news_article_2 = FactoryBot.create(:newsarticle)
-          expect(assigns(:news_articles)).to eq([news_article_1, news_article_2])
+          expect(assigns(:news_articles)).to eq([news_article_2, news_article_1])
         end
     end
 
@@ -168,7 +168,11 @@ RSpec.describe NewsArticlesController, type: :controller do
     end
 
     describe "#update" do
+      context "without user signed in" do
         
+      end
+      context "with user signed in" do
+      end
     end
     
 end

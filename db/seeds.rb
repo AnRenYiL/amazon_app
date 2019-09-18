@@ -10,9 +10,11 @@ Product.destroy_all
 Review.destroy_all
 User.destroy_all
 Like.destroy_all
+Tag.destroy_all
 
-NUM_PRODUCTS = 200
+NUM_PRODUCTS = 50
 NUM_USERS = 5
+NUM_TAGS = 20
 PASSWORD = "supersecret"
 
 super_user = User.create(
@@ -22,6 +24,14 @@ super_user = User.create(
   password: "123",
   is_admin: true
 )
+
+NUM_TAGS.times do
+  Tag.create(
+    name: Faker::ProgrammingLanguage.name
+  )
+end
+
+tags = Tag.all
 
 NUM_USERS.times do
   first_name = Faker::Name.first_name
@@ -47,7 +57,6 @@ NUM_PRODUCTS.times do
     updated_at: created_at,
     user: users.sample
   )
-
   if p.valid?
     rand(0..10).times.map do
       r = Review.create(
@@ -60,6 +69,7 @@ NUM_PRODUCTS.times do
         r.likers = users.shuffle.slice(0, rand(users.count))
       end
     end
+    p.tags = tags.shuffle.slice(0, rand(tags.count / 2))
   end
 end
 
@@ -71,4 +81,5 @@ puts Cowsay.say("Generated #{products.count} products", :frogs)
 puts Cowsay.say("Generated #{reviews.count} reviews", :stegosaurus)
 puts Cowsay.say("Generated #{users.count} users", :tux)
 puts Cowsay.say("Generated #{likes.count} likes", :cheese)
+puts Cowsay.say("Generated #{tags.count} tags", :kitty)
 puts "Login with #{super_user.email} and password: 123"

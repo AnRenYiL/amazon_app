@@ -5,6 +5,14 @@
     <p class="card-text"><%= @product.description%></p>
     <h5>$<%= @product.price%></h5>
     <h6>Sort by: <%= @product.user&.full_name%></h6>
+      Tags:   <% @product.tags.each do |tag|  %>
+            <%= link_to(
+                  tag.name,
+                  tags_path,
+                  class: "badge badge-pill badge-primary"
+                  ) %>
+          <% end %>
+          <br>
     <%= link_to "Edit", edit_product_path(@product), class:"btn btn-warning "%>
     <%= link_to "Delete", product_path(@product), class:"btn btn-danger ", method: :delete, data:{confirm: "Are you sure?"}%>
     <% if @favourite%>

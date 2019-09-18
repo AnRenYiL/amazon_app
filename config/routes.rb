@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create] do
     delete :destroy, on: :collection
   end
+  resources :tags,only: [:index]
   get '/admin/panel', {to: "admin#panel"}
   resources :news_articles
   # resources :entry

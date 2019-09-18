@@ -3,6 +3,10 @@ class Product < ApplicationRecord
     belongs_to :user
     has_many :favourites, dependent: :destroy
     has_many :favouriters, through: :favourites, source: :user
+
+    has_many :taggings, dependent: :destroy
+    has_many :tags, through: :taggings
+    
     validates(:title, presence: true, uniqueness:  { case_sensitive: false })
     validates(
         :description,
