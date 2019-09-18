@@ -23,7 +23,12 @@ class ProductsController < ApplicationController
     else
       @review = Review.new
     end
+    
+    @favourite = Favourite.find_by(product_id: @product, user_id: current_user)
     @reviews = @product.reviews.order(created_at: :desc)
+
+    # @likes = @reviews.likes.find_by(user: current_user)
+    
   end
 
   def index

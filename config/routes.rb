@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   # patch '/products/:id', {to: "products#update"}
   # delete '/products/:id', {to: "products#destroy"}
   resources :products do
-    resources :reviews
+    resources :reviews do
+      resources :likes, shallow: true, only: [:create, :destroy]
+    end
+    resources :favourites, shallow: true, only: [:create, :destroy]
   end
   resources :projects do
     resources :tasks, only: [:create, :destroy]
