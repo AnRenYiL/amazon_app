@@ -11,6 +11,8 @@ class User < ApplicationRecord
     has_many :liked_reviews, through: :likes, source: :review
     has_many :favourites
     has_many :favourited_products, through: :favourites, source: :product
+    has_many :votes
+    has_many :vote_reviews, through: :votes, source: :review
     validates :email, presence: true, uniqueness: true,
             format:  /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
     def full_name

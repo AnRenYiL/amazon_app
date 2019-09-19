@@ -90,6 +90,27 @@
         (<%= pluralize(review.likes.count, "like") %>)
       </small>
       |
+      <% vote = review.votes.find_by(user: current_user) %>
+      <% if vote%>
+        <%= link_to vote.is_vote ? "Cancel Vote Up" : "Cancel Vote Down", vote_path(vote), class:"btn btn-light ", method: :delete%>
+      <% elsif can?(:vote, review)%>
+        <%= form_with(url: product_review_votes_path(@product,review), local: true) do |f| %>
+        <input type="hidden" name="is_vote" value="true">
+        <%= f.submit "Vote Up", class:"btn btn-info" %>
+        <% end %>
+        <%= form_with(url: product_review_votes_path(@product,review), local: true) do |f| %>
+        <input type="hidden" name="is_vote" value="false">
+        <%= f.submit "Vote Down", class:"btn btn-dark" %>
+        <% end %>
+      <% end %>
+      |      
+      <small>
+        (<%= pluralize(review.votes.where(is_vote: true).count, "vote up") %>)
+      </small>
+      |      
+      <small>
+        (<%= pluralize(review.votes.where(is_vote: false).count, "vote down") %>)
+      </small>
       <small>
         <%= link_to(
             "Delete",
