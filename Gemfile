@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem 'pry-rails'
 gem 'cancancan'
 
 # Use Active Storage variant
@@ -31,6 +31,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.3.1'
 
 gem 'jquery-rails'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -40,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails'
+  gem 'letter_opener'
 end
 
 group :development do

@@ -1,0 +1,18 @@
+<h2>Hi, <%= @product_owner.full_name %></h2>
+
+<p>
+   <%= @review.user.full_name %> reviewed your product: <br />
+   <span style="font-weight: 600;"> <%= @product.title %></span>
+ </p>
+
+ <p>
+   The review is: <br />
+   <%= @review.body %>
+ </p>
+
+ <%= link_to("Click here to view your product", product_url(@product)) %>
+
+ <p>
+   Cheers, <br />
+   Amazon Team
+ </p>
