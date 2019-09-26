@@ -1,5 +1,7 @@
 class Api::V1::ProductsController < Api::ApplicationController
-    before_action :find_product, only: [:show, :destroy]
+  before_action :authenticate_user!, except: [:index,:show]
+  before_action :find_product, only: [:show, :destroy]
+
     def index
       products = Product.order(created_at: :desc)
       render json: products
@@ -9,9 +11,27 @@ class Api::V1::ProductsController < Api::ApplicationController
       render json: @product
     end
 
+    def create
+      product = Product.new product_params
+      product.user = current_user
+      if product.save
+        render json: { id: product.id }
+      else
+        render(
+          json: { errors: product.errors },
+          status: 422 
+        )
+      end
+    end
+
+
     private
   
     def find_product
       @product ||= Product.find params[:id]
+    end
+
+    def product_params
+      params.require(:product).permit(:title, :description)
     end
 end
