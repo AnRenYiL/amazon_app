@@ -11,6 +11,13 @@ Rails.application.routes.draw do
   post 'entry/show_success'
   get 'entry/hello'
 
+  namespace :api, defaults: {format: :json } do
+    namespace :v1 do
+      resources :products
+      # resource :session, only: [:create, :destory]
+    end
+  end
+
   # get '/products/new', {to: "products#new", as: :new_product}
   # post 'products', {to: 'products#create', as: :products}
   # get '/products', {to: 'products#index'}
