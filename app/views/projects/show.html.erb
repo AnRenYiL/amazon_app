@@ -45,8 +45,8 @@
     <div>
         <h1>Done</h1>
         <ul>
-            <% if @tasks!= nil%>
-            <% @tasks.each do |task| %>
+            <% if @donetasks!= nil%>
+            <% @donetasks.each do |task| %>
             <% if task.done%>
             <li>
                 <p>
@@ -76,8 +76,8 @@
     <div>
         <h1>Undone</h1>
         <ul>
-            <% if @tasks!= nil%>
-            <% @tasks.each do |task| %>
+            <% if @undonetasks!= nil%>
+            <% @undonetasks.each do |task| %>
             <% if !task.done%>
             <li>
                 <p>

@@ -18,7 +18,9 @@ class ProjectsController < ApplicationController
   def show
     @task  = Task.new
     @discussion = Discussion.new
-    @tasks = @project.tasks.order(created_at: :desc)
+    # @tasks = @project.tasks.order(created_at: :desc)
+    @activeCourses = @project.tasks.where(done: true)
+    @completedCourses = @project.tasks.where(done: false)
     @discussions = @project.discussions.order(created_at: :desc)
   end
 
